@@ -18,7 +18,7 @@ SegImage = im2bw(GreyImage,threshold); % imshow(SegImage);
 bw=findLines(GreyImage); % imshow(bw)
 
 %  remove all object containing fewer than 90 pixels
-bw1 = bwareaopen(bw,90); % imshow(bw1)
+%bw1 = bwareaopen(bw,90); % imshow(bw1)
 
 % remove noise
 %SE = strel('square',2); % imshow(SegImage-bw1);
@@ -27,8 +27,8 @@ erodedI = SegImage;
 
 % segmentation
 L = bwlabel(erodedI>0,8);
-RGB = label2rgb(L); % imshow(RGB)
-
+%RGB = label2rgb(L); % imshow(RGB)
 lane = polyFitting(L);
+
 end
 
