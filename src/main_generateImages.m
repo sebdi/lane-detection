@@ -12,7 +12,8 @@ fy = 600;
 cx = 640/2;
 cy = 480/2;
 K = [fx 0 cx;0 fy cy; 0 0 1];
-R = rotx(60);
+alpha = 60;
+R = [1 0 0; 0 cos(deg2rad(alpha)) -sin(deg2rad(alpha)); 0 sin(deg2rad(alpha)) cos(deg2rad(alpha))];
 t = - R * [0 -100 0]';
 %% round trip street
 r = 79;
@@ -39,7 +40,8 @@ xy = [xy [-(xp+xc);zeros(1,length(xp));yp+yc]];
 
 for i=1:length(xy)
     dt = xy(:,i);
-    dr = R * inv(roty(rad2deg(ang(i))));
-    image = genCameraImage(R, t, K, fx, fy, cx, cy, inv(roty(rad2deg(ang(i)))), dt, 1);
-    imwrite(reshape(image,cy*2,cx*2),['sim/camera_image_' num2str(i) '.png']);
+    roty = [cos(ang(i)) 0 sin(ang(i)); 0 1 0; -sin(ang(i)) 0 cos(ang(i))];
+    dr = R * inv(roty);
+    image = genCameraImage(R, t, K, fx, fy, cx, cy, inv(roty), dt, 1);
+    imwrite(reshape(image,cy*2,cx*2),['sim/noise/camera_image_' num2str(i) '.png']);
 end

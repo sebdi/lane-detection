@@ -12,12 +12,13 @@ fy = 600;
 cx = 640/2;
 cy = 480/2;
 K = [fx 0 cx;0 fy cy; 0 0 1];
-R_b = rotx(30);
+alpha = 30;
+R_b = [1 0 0; 0 cos(deg2rad(alpha)) -sin(deg2rad(alpha)); 0 sin(deg2rad(alpha)) cos(deg2rad(alpha))];
 for i=1:158
     I = imread(['sim/noise/camera_image_' num2str(i) '.png']);
     K2 = [fx 0 cx*4;0 fy cy*4;0 0 1];
     bird_view = getBirdViewImage(fx, fy, cx, cy, I, K, R_b, K2, cy*4, cx*4,[0;0;0]);
     SE = strel('square',4);
     dilateI = imdilate(reshape(bird_view,cy*8,cx*8),SE);
-    imwrite(dilateI,['sim/bird_view_' num2str(i) '.png']);
+    imwrite(dilateI,['sim/noise/bird_view_' num2str(i) '.png']);
 end
