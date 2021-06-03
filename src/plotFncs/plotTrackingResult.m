@@ -38,10 +38,13 @@ for i=1 : length(TrackList)
     end
 end
 subplot(3,1,1);
-plot(a,'-X');hold on; plot(m_a,'-O'); legend('x','m');
+plot(m_a,'g'); hold on; plot(a,'--r'); legend('Measurement','Kalman filter');
+ylabel('a_2'); xlabel('time step k');
 subplot(3,1,2);
-plot(b,'-X');hold on; plot(m_b,'-O'); legend('x','m');
+plot(m_b,'g'); hold on; plot(b,'--r'); legend('Measurement','Kalman filter');
+ylabel('a_1'); xlabel('time step k');
 subplot(3,1,3);
-plot(c,'-X');hold on; plot(m_c,'-O'); legend('x','m');
+plot(m_c,'g'); hold on; plot(c,'--r'); legend('Measurement','Kalman filter');
+ylabel('a_0'); xlabel('time step k');
 end
 
