@@ -1,5 +1,6 @@
 function lane = polyFitting(L)
 %POLYFITTING iterates over labeled pixels and fits polynomials to it
+% Input   L is the label matrix L that contains the labels.
 %
 % AUTHOR  Sebastian Dingler <s.dingler@gmail.com>
 %
@@ -8,17 +9,17 @@ function lane = polyFitting(L)
 % DATE    29.08.2016
 lane=[];
 lane_id = 1;
-for i=1:max(max(L))
+for i=1:max(max(L)) % iterate over all labels
     
-    [r, c] = find(L==i);
-    [r,i_sort] = sort(r);
-    c = c(i_sort);
+    [row, col] = find(L==i);
+    [row,i_sort] = sort(row);
+    col = col(i_sort);
     
-    if size(r,1) > 80 % only if set is large enough
-        %plot(c,r,'Xr'); hold on;
+    if size(row,1) > 80 % only if set is large enough
+        %plot(col,row,'Xr'); hold on;
         
-        if size(r,1) > 1800
-            [p_1, p_2, r_1, r_2, error_1, error_2, succ] = fitTwoPolynomials(r,c);
+        if size(row,1) > 1800
+            [p_1, p_2, r_1, r_2, error_1, error_2, succ] = fitTwoPolynomials(row,col);
             
             %plot(error_1); hold on; plot(error_2); pause(0.1);
             [v_min,v_i] = min(error_1 + error_2);
@@ -37,21 +38,21 @@ for i=1:max(max(L))
                     lane_id = lane_id + 1;
                     
                 else
-                    p = polyfit(r,c,2);
+                    p = polyfit(row,col,2);
                     lane{lane_id}.p= p;
-                    lane{lane_id}.r = r;
+                    lane{lane_id}.r = row;
                     lane_id = lane_id + 1;
                 end
             else
-                p = polyfit(r,c,2);
+                p = polyfit(row,col,2);
                 lane{lane_id}.p= p;
-                lane{lane_id}.r = r;
+                lane{lane_id}.r = row;
                 lane_id = lane_id + 1;
             end
         else
-            p = polyfit(r,c,2);
+            p = polyfit(row,col,2);
             lane{lane_id}.p= p;
-            lane{lane_id}.r = r;
+            lane{lane_id}.r = row;
             lane_id = lane_id + 1;
         end
     end
