@@ -10,7 +10,11 @@ for i=start_index:end_index
     video = imread([image_path num2str(i) '.png']);
     imshow(video);hold on;
     for j=1:length(lanes{i})
-        displayPoly(lanes{i}{j}.p, lanes{i}{j}.r');hold on;
+        if length(lanes{i}) == 1
+            displayPoly(lanes{i}.p, lanes{i}.r');hold on;
+        else
+            displayPoly(lanes{i}{j}.p, lanes{i}{j}.r');hold on;
+        end
     end
     pause(0.5);
 end
