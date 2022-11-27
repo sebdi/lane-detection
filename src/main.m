@@ -44,4 +44,4 @@ for i=1:length(measurements)
     TrackList{i+1} = doTracking(TrackList{i},measurements{i},TrackID,F,Q,R,H);
 end
 
-plotTrackingResult(TrackList);
+plotTrackingResult(TrackList,1);
