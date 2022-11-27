@@ -7,7 +7,7 @@
 % DATE    03.06.2021
 %% Read images and extract lanes
 addpath('ImageProcessing','plotFncs','Tracking');
-image_path = 'sim/bird_view_';
+image_path = 'sim/noise/bird_view_';
 load('lanes_noise.mat')
 
 %% Tracking with Kalman-Filter
@@ -39,4 +39,6 @@ for i=1:length(measurements)
     TrackList{i+1} = doTracking(TrackList{i},measurements{i},TrackID,F,Q,R,H);
 end
 
-plotTrackingResult(TrackList);
+plotTrackingResult(TrackList,1);
+% uncomment if you want to see video of tracks
+%displayTrackingResult(image_path, TrackList, lanes);
